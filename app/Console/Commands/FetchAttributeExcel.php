@@ -39,7 +39,7 @@ class FetchAttributeExcel extends Command
         ini_set('memory_limit', '2048M');
         set_time_limit(0);
 
-        $message = "Sears: product status job started";
+        $message = "Attribute: fetcher Command Started";
         Log::debug($message); echo $message ."\n";
     }
 
@@ -53,14 +53,6 @@ class FetchAttributeExcel extends Command
         $this->init();
         //Import the Excel Data using API
 
-        $attr_string = 's:5:"brand";s:5:"Intel";s:15:"processor_model";s:12:"CORE I7-2600";s:3:"mpn";a:3:{i:0;s:13:"BX80623I72600";i:1;s:15:"CM8062300834302";i:2;s:14:"BXC80623I72600";}s:14:"processor_type";s:16:"Core i7 2nd Gen.";s:11:"socket_type";s:18:"LGA 1155/Socket H2";s:15:"number_of_cores";i:4;s:9:"bus_speed";s:16:"Dmi SPEED-5 Gt/S";s:11:"clock_speed";s:6:"3.4GHz";s:8:"l2_cache";s:5:"256KB";s:8:"l3_cache";s:4:"8 MB";';
-
-        $data = unserialize($attr_string);
-
-        dd($data);
-
-        @file_put_contents("C:\\Users\\sayyad\\Desktop\\aspects_old.json", $data);
-        exit;
         $dir = "C:\laragon\www\FetchAttributeExcel\public\attributes";
 
         $files = scandir($dir);
@@ -97,7 +89,6 @@ class FetchAttributeExcel extends Command
                     $product_id = strtok($sheet['sku'], '.');
                     if(is_numeric($product_id) && strlen($product_id) == 6)
                     {
-                        // dd($sheet);
                         foreach ($sheet as $key => $value) {
                             if($key == "item_id" || $key == "sku"){
                                 continue;
